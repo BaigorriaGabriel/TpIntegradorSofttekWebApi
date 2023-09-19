@@ -12,7 +12,7 @@ using TpIntegradorSofttek.DataAccess;
 namespace TpIntegradorSofttek.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230917234751_TechOil")]
+    [Migration("20230919185712_TechOil")]
     partial class TechOil
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,13 +53,13 @@ namespace TpIntegradorSofttek.Migrations
                         .HasColumnType("real")
                         .HasColumnName("hourValue");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit")
+                        .HasColumnName("isActive");
+
                     b.Property<float>("Price")
                         .HasColumnType("real")
                         .HasColumnName("price");
-
-                    b.Property<bool>("state")
-                        .HasColumnType("bit")
-                        .HasColumnName("state");
 
                     b.HasKey("CodJob");
 
@@ -80,14 +80,18 @@ namespace TpIntegradorSofttek.Migrations
                         .HasColumnType("VARCHAR(100)")
                         .HasColumnName("address");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit")
+                        .HasColumnName("isActive");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("VARCHAR(100)")
                         .HasColumnName("name");
 
-                    b.Property<bool>("State")
-                        .HasColumnType("bit")
-                        .HasColumnName("state");
+                    b.Property<int>("Status")
+                        .HasColumnType("int")
+                        .HasColumnName("status");
 
                     b.HasKey("CodProject");
 
@@ -112,9 +116,9 @@ namespace TpIntegradorSofttek.Migrations
                         .HasColumnType("real")
                         .HasColumnName("hourValue");
 
-                    b.Property<bool>("State")
+                    b.Property<bool>("IsActive")
                         .HasColumnType("bit")
-                        .HasColumnName("state");
+                        .HasColumnName("isActive");
 
                     b.HasKey("CodService");
 
@@ -135,6 +139,15 @@ namespace TpIntegradorSofttek.Migrations
                         .HasColumnType("VARCHAR(10)")
                         .HasColumnName("dni");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(100)")
+                        .HasColumnName("email");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit")
+                        .HasColumnName("isActive");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("VARCHAR(50)")
@@ -149,10 +162,6 @@ namespace TpIntegradorSofttek.Migrations
                         .HasColumnType("Int")
                         .HasColumnName("type");
 
-                    b.Property<bool>("state")
-                        .HasColumnType("bit")
-                        .HasColumnName("state");
-
                     b.HasKey("CodUser");
 
                     b.ToTable("Users");
@@ -162,19 +171,21 @@ namespace TpIntegradorSofttek.Migrations
                         {
                             CodUser = 1,
                             Dni = "44504788",
+                            Email = "gabi.2912@hotmail.com",
+                            IsActive = true,
                             Name = "Gabriel Baigorria",
                             Password = "1234",
-                            Type = 1,
-                            state = true
+                            Type = 1
                         },
                         new
                         {
                             CodUser = 2,
                             Dni = "45000001",
+                            Email = "feli.2003@hotmail.com",
+                            IsActive = true,
                             Name = "Felipe Morato",
                             Password = "1234",
-                            Type = 2,
-                            state = true
+                            Type = 2
                         });
                 });
 #pragma warning restore 612, 618

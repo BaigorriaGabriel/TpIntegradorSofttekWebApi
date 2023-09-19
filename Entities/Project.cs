@@ -18,7 +18,11 @@ namespace TpIntegradorSofttek.Entities
         public string Address { get; set; }
 
         [Required]
-        [Column("state")]
-        public bool State { get; set; }
+        [Column("status")]
+        public int Status { get; set; }
+
+        [Required]
+        [Column("isActive")]
+        public bool IsActive { get; set; }
     }
 }

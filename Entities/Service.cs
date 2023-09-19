@@ -15,8 +15,8 @@ namespace TpIntegradorSofttek.Entities
         public string Description { get; set; }
 
         [Required]
-        [Column("state")]
-        public bool State { get; set; }
+        [Column("isActive")]
+        public bool IsActive { get; set; }
 
         [Required]
         [Column("hourValue")]

@@ -13,19 +13,21 @@ namespace TpIntegradorSofttek.DataAccess.DataBaseSeeding
                 {
                     CodUser=1,
                     Name="Gabriel Baigorria",
+                    Email="gabi.2912@hotmail.com",
                     Dni="44504788",
                     Type=1,
                     Password="1234",
-                    state=true
+                    IsActive =true
                 },
                 new User
                 {
                     CodUser = 2,
                     Name = "Felipe Morato",
+                    Email = "feli.2003@hotmail.com",
                     Dni = "45000001",
                     Type = 2,
                     Password = "1234",
-                    state = true
+                    IsActive = true
                 });
         }
     }

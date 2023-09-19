@@ -34,7 +34,7 @@ namespace TpIntegradorSofttek.Entities
         public float Price { get; set; }
 
         [Required]
-        [Column("state")]
-        public bool state { get; set; }
+        [Column("isActive")]
+        public bool IsActive { get; set; }
     }
 }

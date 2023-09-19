@@ -21,7 +21,7 @@ namespace TpIntegradorSofttek.Migrations
                     amountHours = table.Column<int>(type: "int", nullable: false),
                     hourValue = table.Column<float>(type: "real", nullable: false),
                     price = table.Column<float>(type: "real", nullable: false),
-                    state = table.Column<bool>(type: "bit", nullable: false)
+                    isActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -36,7 +36,8 @@ namespace TpIntegradorSofttek.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "VARCHAR(100)", nullable: false),
                     address = table.Column<string>(type: "VARCHAR(100)", nullable: false),
-                    state = table.Column<bool>(type: "bit", nullable: false)
+                    status = table.Column<int>(type: "int", nullable: false),
+                    isActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,7 +51,7 @@ namespace TpIntegradorSofttek.Migrations
                     codService = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     description = table.Column<string>(type: "VARCHAR(200)", nullable: false),
-                    state = table.Column<bool>(type: "bit", nullable: false),
+                    isActive = table.Column<bool>(type: "bit", nullable: false),
                     hourValue = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
@@ -65,10 +66,11 @@ namespace TpIntegradorSofttek.Migrations
                     codUser = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     name = table.Column<string>(type: "VARCHAR(50)", nullable: false),
+                    email = table.Column<string>(type: "VARCHAR(100)", nullable: false),
                     dni = table.Column<string>(type: "VARCHAR(10)", nullable: false),
                     type = table.Column<int>(type: "Int", nullable: false),
                     password = table.Column<string>(type: "VARCHAR(250)", nullable: false),
-                    state = table.Column<bool>(type: "bit", nullable: false)
+                    isActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -77,13 +79,13 @@ namespace TpIntegradorSofttek.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "codUser", "dni", "name", "password", "type", "state" },
-                values: new object[] { 1, "44504788", "Gabriel Baigorria", "1234", 1, true });
+                columns: new[] { "codUser", "dni", "email", "isActive", "name", "password", "type" },
+                values: new object[] { 1, "44504788", "gabi.2912@hotmail.com", true, "Gabriel Baigorria", "1234", 1 });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "codUser", "dni", "name", "password", "type", "state" },
-                values: new object[] { 2, "45000001", "Felipe Morato", "1234", 2, true });
+                columns: new[] { "codUser", "dni", "email", "isActive", "name", "password", "type" },
+                values: new object[] { 2, "45000001", "feli.2003@hotmail.com", true, "Felipe Morato", "1234", 2 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
