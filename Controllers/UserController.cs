@@ -20,12 +20,12 @@ namespace TpIntegradorSofttek.Controllers
 
         [HttpGet]
         [Route("GetAll")]
-        public async Task<ActionResult<IEnumerable<User>>> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var users = await _unitOfWork.UserRepository.GetAll();
-            //var users = await _unitOfWork.UserRepository.GetAll().Result.Where(x=> x.IsActive == false);
+            //var users = await _unitOfWork.UserRepository.GetAll();
+            var users =  _unitOfWork.UserRepository.GetAll().Result.Where(x=> x.IsActive == true);
 
-            return users;
+            return Ok(users);
         }
 
 

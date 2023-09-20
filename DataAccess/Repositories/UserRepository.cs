@@ -14,7 +14,7 @@ namespace TpIntegradorSofttek.DataAccess.Repositories
 
         public async Task<User?> AuthenticateCredentials(AuthenticateDto dto)
         {
-            return await _context.Users.SingleOrDefaultAsync(x=> x.Email == dto.Email && x.Password == dto.Password);
+            return await _context.Users.SingleOrDefaultAsync(x=> (x.Email == dto.Email && x.Password == dto.Password) && x.IsActive==true);
         }
 
         public override async Task<bool> Update(User updateUser)
