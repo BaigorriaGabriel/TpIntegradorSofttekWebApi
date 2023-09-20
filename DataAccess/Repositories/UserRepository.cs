@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TpIntegradorSofttek.DataAccess.Repositories.Interfaces;
+using TpIntegradorSofttek.DTOs;
 using TpIntegradorSofttek.Entities;
 
 namespace TpIntegradorSofttek.DataAccess.Repositories
@@ -9,6 +10,11 @@ namespace TpIntegradorSofttek.DataAccess.Repositories
         public UserRepository(ApplicationDbContext context) : base(context)
         {
             
+        }
+
+        public async Task<User?> AuthenticateCredentials(AuthenticateDto dto)
+        {
+            return await _context.Users.SingleOrDefaultAsync(x=> x.Email == dto.Email && x.Password == dto.Password);
         }
 
         public override async Task<bool> Update(User updateUser)
