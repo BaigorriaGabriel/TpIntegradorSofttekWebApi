@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using TpIntegradorSofttek.DTOs;
+using TpIntegradorSofttek.Helper;
 
 namespace TpIntegradorSofttek.Entities
 {
@@ -13,7 +14,7 @@ namespace TpIntegradorSofttek.Entities
             Dni= dto.Dni;
             Email = dto.Email;
             Type = dto.Type;
-            Password = dto.Password;
+            Password = PasswordEncryptHelper.EncryptPassword(dto.Password); ;
             IsActive = true;
         }
 
@@ -24,7 +25,7 @@ namespace TpIntegradorSofttek.Entities
             Dni = dto.Dni;
             Email = dto.Email;
             Type = dto.Type;
-            Password = dto.Password;
+            Password = PasswordEncryptHelper.EncryptPassword(dto.Password); 
             IsActive = true;
         }
 

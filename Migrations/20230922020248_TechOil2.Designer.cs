@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TpIntegradorSofttek.DataAccess;
 
@@ -11,9 +12,10 @@ using TpIntegradorSofttek.DataAccess;
 namespace TpIntegradorSofttek.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230922020248_TechOil2")]
+    partial class TechOil2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,7 +178,7 @@ namespace TpIntegradorSofttek.Migrations
                             Email = "gabi.2912@hotmail.com",
                             IsActive = true,
                             Name = "Gabriel Baigorria",
-                            Password = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+                            Password = "1234",
                             Type = 1
                         },
                         new
@@ -186,7 +188,7 @@ namespace TpIntegradorSofttek.Migrations
                             Email = "feli.2003@hotmail.com",
                             IsActive = true,
                             Name = "Felipe Morato",
-                            Password = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+                            Password = "1234",
                             Type = 2
                         });
                 });

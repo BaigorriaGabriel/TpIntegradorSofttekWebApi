@@ -2,6 +2,7 @@
 using TpIntegradorSofttek.DataAccess.Repositories.Interfaces;
 using TpIntegradorSofttek.DTOs;
 using TpIntegradorSofttek.Entities;
+using TpIntegradorSofttek.Helper;
 
 namespace TpIntegradorSofttek.DataAccess.Repositories
 {
@@ -14,7 +15,7 @@ namespace TpIntegradorSofttek.DataAccess.Repositories
 
         public async Task<User?> AuthenticateCredentials(AuthenticateDto dto)
         {
-            return await _context.Users.SingleOrDefaultAsync(x=> (x.Email == dto.Email && x.Password == dto.Password) && x.IsActive==true);
+            return await _context.Users.SingleOrDefaultAsync(x=> (x.Email == dto.Email && x.Password == PasswordEncryptHelper.EncryptPassword(dto.Password)) && x.IsActive==true);
         }
 
         public override async Task<bool> Update(User updateUser)

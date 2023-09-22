@@ -15,12 +15,16 @@ namespace TpIntegradorSofttek.Entities
         public string Description { get; set; }
 
         [Required]
-        [Column("isActive")]
-        public bool IsActive { get; set; }
+        [Column("status")]
+        public bool Status { get; set; }
 
         [Required]
         [Column("hourValue")]
         public float HourValue { get; set; }
 
+
+        [Required]
+        [Column("isActive")]
+        public bool IsActive { get; set; }
     }
 }

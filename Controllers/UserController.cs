@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TpIntegradorSofttek.DTOs;
 using TpIntegradorSofttek.Entities;
+using TpIntegradorSofttek.Helper;
 using TpIntegradorSofttek.Services;
 
 namespace TpIntegradorSofttek.Controllers
@@ -39,7 +40,7 @@ namespace TpIntegradorSofttek.Controllers
             return Ok(true);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("Update/{id}")]
         public async Task<IActionResult> Update([FromRoute] int id, RegisterDto dto)
         {
             var result = await _unitOfWork.UserRepository.Update(new User(dto, id));
@@ -47,10 +48,10 @@ namespace TpIntegradorSofttek.Controllers
             return Ok(true);
         }
 
-        [HttpDelete("{idEliminar}")]
-        public async Task<IActionResult> Delete([FromRoute] int idEliminar)
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var result = await _unitOfWork.UserRepository.Delete(new User(idEliminar));
+            var result = await _unitOfWork.UserRepository.Delete(new User(id));
             await _unitOfWork.Complete();
             return Ok(true);
         }
