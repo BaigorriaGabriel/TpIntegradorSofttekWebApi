@@ -3,73 +3,70 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TpIntegradorSofttek.DTOs;
 using TpIntegradorSofttek.Entities;
-using TpIntegradorSofttek.Helper;
 using TpIntegradorSofttek.Services;
 
 namespace TpIntegradorSofttek.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class ServiceController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        public UserController(IUnitOfWork unitOfWork)
+        public ServiceController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        
-
         [HttpGet("GetAllActive")]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<User>>> GetAllActive()
+        public async Task<ActionResult<IEnumerable<Service>>> GetAllActive()
         {
-            var users = await _unitOfWork.UserRepository.GetAllActive();
+            var servicies = await _unitOfWork.ServiceRepository.GetAllActive();
 
-            return Ok(users);
+            return Ok(servicies);
         }
 
-
-        //devuelve el usuario incluso si esta dado de baja (logicamente)
+        //devuelve el servicio incluso si esta dado de baja (logicamente)
         [HttpGet("GetById/{id}")]
         [Authorize]
-        public async Task<ActionResult<User>> GetById([FromRoute] int id)
+        public async Task<ActionResult<Service>> GetById([FromRoute] int id)
         {
-            var users = await _unitOfWork.UserRepository.GetById(new User(id));
+            var service = await _unitOfWork.ServiceRepository.GetById(new Service(id));
 
-            return Ok(users);
+            return Ok(service);
         }
 
 
         [HttpPost]
-        [Route("Register")]
+        [Route("Create")]
         [Authorize(Policy = "Admin")]
-        public async Task<IActionResult> Register(RegisterDto dto)
+        public async Task<IActionResult> Create(ServiceDto dto)
         {
-            var user = new User(dto);
-            await _unitOfWork.UserRepository.Insert(user);
+            var service = new Service(dto);
+            await _unitOfWork.ServiceRepository.Insert(service);
             await _unitOfWork.Complete();
             return Ok(true);
         }
 
+
         [HttpPut("Update/{id}")]
         [Authorize(Policy = "Admin")]
-        public async Task<IActionResult> Update([FromRoute] int id, RegisterDto dto)
+        public async Task<IActionResult> Update([FromRoute] int id, ServiceDto dto)
         {
-            var result = await _unitOfWork.UserRepository.Update(new User(dto, id));
+            var result = await _unitOfWork.ServiceRepository.Update(new Service(dto, id));
             await _unitOfWork.Complete();
             return Ok(true);
         }
+
 
         [HttpDelete("Delete/{id}")]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
-            var result = await _unitOfWork.UserRepository.Delete(new User(id));
+            var result = await _unitOfWork.ServiceRepository.Delete(new Service(id));
             await _unitOfWork.Complete();
             return Ok(true);
         }
-
 
     }
 }

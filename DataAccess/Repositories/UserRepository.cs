@@ -18,6 +18,18 @@ namespace TpIntegradorSofttek.DataAccess.Repositories
             return await _context.Users.SingleOrDefaultAsync(x=> (x.Email == dto.Email && x.Password == PasswordEncryptHelper.EncryptPassword(dto.Password)) && x.IsActive==true);
         }
 
+        public override async Task<List<User>> GetAllActive()
+        {
+            return await _context.Users.Where(s => s.IsActive == true).ToListAsync();
+        }
+
+        public override async Task<User> GetById(User UserToGet)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.CodUser == UserToGet.CodUser);
+
+            return user;
+        }
+
         public override async Task<bool> Update(User updateUser)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x=> x.CodUser == updateUser.CodUser);

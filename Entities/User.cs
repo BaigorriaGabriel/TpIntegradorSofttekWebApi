@@ -14,7 +14,7 @@ namespace TpIntegradorSofttek.Entities
             Dni= dto.Dni;
             Email = dto.Email;
             RoleId = 2;
-            Password = PasswordEncryptHelper.EncryptPassword(dto.Password); ;
+            Password = PasswordEncryptHelper.EncryptPassword(dto.Password); 
             IsActive = true;
         }
 

@@ -16,10 +16,12 @@ namespace TpIntegradorSofttek.Entities
         [Required]
         [Column("codProject")]
         public int CodProject { get; set; }
+        public Project? Project { get; set; }
 
         [Required]
         [Column("codService")]
         public int CodService { get; set; }
+        public Service? Service { get; set; }
 
         [Required]
         [Column("amountHours")]
