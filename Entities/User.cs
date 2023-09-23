@@ -13,7 +13,7 @@ namespace TpIntegradorSofttek.Entities
             Name = dto.Name;
             Dni= dto.Dni;
             Email = dto.Email;
-            Type = dto.Type;
+            RoleId = 2;
             Password = PasswordEncryptHelper.EncryptPassword(dto.Password); ;
             IsActive = true;
         }
@@ -24,7 +24,7 @@ namespace TpIntegradorSofttek.Entities
             Name = dto.Name;
             Dni = dto.Dni;
             Email = dto.Email;
-            Type = dto.Type;
+            RoleId = dto.RoleId;
             Password = PasswordEncryptHelper.EncryptPassword(dto.Password); 
             IsActive = true;
         }
@@ -59,8 +59,9 @@ namespace TpIntegradorSofttek.Entities
         public string Dni { get; set; }
 
         [Required]
-        [Column("type", TypeName = "Int")]
-        public int Type { get; set; }
+        [Column("roleId", TypeName = "Int")]
+        public int RoleId { get; set; }
+        public Role? Role { get; set; }
 
         [Required]
         [Column("password", TypeName = "VARCHAR(250)")]

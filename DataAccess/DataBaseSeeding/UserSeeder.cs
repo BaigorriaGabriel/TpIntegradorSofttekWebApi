@@ -16,7 +16,7 @@ namespace TpIntegradorSofttek.DataAccess.DataBaseSeeding
                     Name="Gabriel Baigorria",
                     Email="gabi.2912@hotmail.com",
                     Dni="44504788",
-                    Type=1,
+                    RoleId = 1,
                     Password= PasswordEncryptHelper.EncryptPassword("1234"),
                     IsActive =true
                 },
@@ -26,7 +26,7 @@ namespace TpIntegradorSofttek.DataAccess.DataBaseSeeding
                     Name = "Felipe Morato",
                     Email = "feli.2003@hotmail.com",
                     Dni = "45000001",
-                    Type = 2,
+                    RoleId = 2,
                     Password = PasswordEncryptHelper.EncryptPassword("1234"),
                     IsActive = true
                 });

@@ -10,7 +10,6 @@ namespace TpIntegradorSofttek.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class UserController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -32,6 +31,7 @@ namespace TpIntegradorSofttek.Controllers
 
         [HttpPost]
         [Route("Register")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Register(RegisterDto dto)
         {
             var user = new User(dto);
@@ -41,6 +41,7 @@ namespace TpIntegradorSofttek.Controllers
         }
 
         [HttpPut("Update/{id}")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Update([FromRoute] int id, RegisterDto dto)
         {
             var result = await _unitOfWork.UserRepository.Update(new User(dto, id));
@@ -49,6 +50,7 @@ namespace TpIntegradorSofttek.Controllers
         }
 
         [HttpDelete("Delete/{id}")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             var result = await _unitOfWork.UserRepository.Delete(new User(id));

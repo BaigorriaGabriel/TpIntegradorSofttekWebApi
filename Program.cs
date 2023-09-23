@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using System.Security.Claims;
 using System.Text;
 using TpIntegradorSofttek.DataAccess;
 using TpIntegradorSofttek.Services;
@@ -54,6 +55,11 @@ namespace TpIntegradorSofttek
             builder.Services.AddDbContext<ApplicationDbContext>(options => 
             {
                 options.UseSqlServer("name=DefaultConnection");
+            });
+
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin", policy => policy.RequireClaim(ClaimTypes.Role, "1"));
             });
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters() 

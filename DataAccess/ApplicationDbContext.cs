@@ -12,12 +12,14 @@ namespace TpIntegradorSofttek.DataAccess
         public DbSet<Project> Projects { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<Job> Jobs { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             var seeders = new List<IEntitySeeder>
             {
                 new UserSeeder(),
+                new RoleSeeder(),
             };
 
             foreach (var seeder in seeders)

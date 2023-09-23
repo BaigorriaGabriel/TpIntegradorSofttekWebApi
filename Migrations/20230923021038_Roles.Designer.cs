@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TpIntegradorSofttek.DataAccess;
 
@@ -11,9 +12,10 @@ using TpIntegradorSofttek.DataAccess;
 namespace TpIntegradorSofttek.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230923021038_Roles")]
+    partial class Roles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,12 +100,12 @@ namespace TpIntegradorSofttek.Migrations
 
             modelBuilder.Entity("TpIntegradorSofttek.Entities.Role", b =>
                 {
-                    b.Property<int>("RoleId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("roleId");
+                        .HasColumnName("id");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleId"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -119,21 +121,21 @@ namespace TpIntegradorSofttek.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("name");
 
-                    b.HasKey("RoleId");
+                    b.HasKey("Id");
 
                     b.ToTable("Roles");
 
                     b.HasData(
                         new
                         {
-                            RoleId = 1,
+                            Id = 1,
                             Description = "Admin",
                             IsActive = true,
                             Name = "Admin"
                         },
                         new
                         {
-                            RoleId = 2,
+                            Id = 2,
                             Description = "Consultant",
                             IsActive = true,
                             Name = "Consultant"
@@ -204,13 +206,11 @@ namespace TpIntegradorSofttek.Migrations
                         .HasColumnType("VARCHAR(250)")
                         .HasColumnName("password");
 
-                    b.Property<int>("RoleId")
+                    b.Property<int>("Type")
                         .HasColumnType("Int")
-                        .HasColumnName("roleId");
+                        .HasColumnName("type");
 
                     b.HasKey("CodUser");
-
-                    b.HasIndex("RoleId");
 
                     b.ToTable("Users");
 
@@ -223,7 +223,7 @@ namespace TpIntegradorSofttek.Migrations
                             IsActive = true,
                             Name = "Gabriel Baigorria",
                             Password = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-                            RoleId = 1
+                            Type = 1
                         },
                         new
                         {
@@ -233,19 +233,8 @@ namespace TpIntegradorSofttek.Migrations
                             IsActive = true,
                             Name = "Felipe Morato",
                             Password = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
-                            RoleId = 2
+                            Type = 2
                         });
-                });
-
-            modelBuilder.Entity("TpIntegradorSofttek.Entities.User", b =>
-                {
-                    b.HasOne("TpIntegradorSofttek.Entities.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Role");
                 });
 #pragma warning restore 612, 618
         }

@@ -31,7 +31,7 @@ namespace TpIntegradorSofttek.Controllers
                 Name = userCredentials.Name,
                 Email = userCredentials.Email,
                 Dni = userCredentials.Dni,
-                Type = userCredentials.Type,
+                RoleId = userCredentials.RoleId,
                 IsActive= userCredentials.IsActive,
                 Token = token
 

@@ -25,7 +25,7 @@ namespace TpIntegradorSofttek.DataAccess.Repositories
             user.Name=updateUser.Name;
             user.Dni=updateUser.Dni;
             user.Email=updateUser.Email;
-            user.Type=updateUser.Type;
+            user.RoleId =updateUser.RoleId;
             user.Password=updateUser.Password;
             user.IsActive=updateUser.IsActive;
 
