@@ -15,7 +15,7 @@ namespace TpIntegradorSofttek.DataAccess.Repositories
 
         public async Task<User?> AuthenticateCredentials(AuthenticateDto dto)
         {
-            return await _context.Users.SingleOrDefaultAsync(x=> (x.Email == dto.Email && x.Password == PasswordEncryptHelper.EncryptPassword(dto.Password)) && x.IsActive==true);
+            return await _context.Users.Include(x=> x.Role).SingleOrDefaultAsync(x=> (x.Email == dto.Email && x.Password == PasswordEncryptHelper.EncryptPassword(dto.Password, dto.Email)) && x.IsActive==true);
         }
 
         public override async Task<List<User>> GetAllActive()
@@ -30,6 +30,13 @@ namespace TpIntegradorSofttek.DataAccess.Repositories
             return user;
         }
 
+        public async Task<User> GetByEmail(string email)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+
+            return user;
+        }
+
         public override async Task<bool> Update(User updateUser)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x=> x.CodUser == updateUser.CodUser);
@@ -39,7 +46,7 @@ namespace TpIntegradorSofttek.DataAccess.Repositories
             user.Email=updateUser.Email;
             user.RoleId =updateUser.RoleId;
             user.Password=updateUser.Password;
-            user.IsActive=updateUser.IsActive;
+            user.IsActive=true;
 
             _context.Users.Update(user);
             return true;
@@ -55,5 +62,17 @@ namespace TpIntegradorSofttek.DataAccess.Repositories
             _context.Users.Update(user);
             return true;
         }
+
+
+        public async Task<bool> UserExById(int id)
+        {
+            return await _context.Users.AnyAsync(x => x.CodUser == id);
+        }
+
+        public async Task<bool> UserExByMail(string email)
+        {
+            return await _context.Users.AnyAsync(x => x.Email == email);
+        }
+
     }
 }
