@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TpIntegradorSofttek.DTOs;
 using TpIntegradorSofttek.Entities;
+using TpIntegradorSofttek.Infrastructure;
 using TpIntegradorSofttek.Services;
 
 namespace TpIntegradorSofttek.Controllers
@@ -19,11 +20,11 @@ namespace TpIntegradorSofttek.Controllers
 
         [HttpGet("GetAllActive")]
         [Authorize]
-        public async Task<ActionResult<IEnumerable<Service>>> GetAllActive()
+        public async Task<IActionResult> GetAllActive()
         {
             var servicies = await _unitOfWork.ServiceRepository.GetAllActive();
 
-            return Ok(servicies);
+            return ResponseFactory.CreateSuccessResponse(200, servicies);
         }
 
         //devuelve el servicio incluso si esta dado de baja (logicamente)

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TpIntegradorSofttek.DTOs;
+using TpIntegradorSofttek.Entities;
 using TpIntegradorSofttek.Helper;
+using TpIntegradorSofttek.Infrastructure;
 using TpIntegradorSofttek.Services;
 
 namespace TpIntegradorSofttek.Controllers
@@ -37,7 +39,7 @@ namespace TpIntegradorSofttek.Controllers
 
             };
 
-            return Ok(user);
+            return ResponseFactory.CreateSuccessResponse(200, user);
         }
 
 
