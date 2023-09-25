@@ -4,7 +4,6 @@ using System.Net;
 using System.Xml.Linq;
 using TpIntegradorSofttek.DTOs;
 using TpIntegradorSofttek.Helper;
-using TpIntegradorSofttek.Migrations;
 
 namespace TpIntegradorSofttek.Entities
 {

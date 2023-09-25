@@ -12,8 +12,8 @@ using TpIntegradorSofttek.DataAccess;
 namespace TpIntegradorSofttek.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230923173934_RelacionesJob")]
-    partial class RelacionesJob
+    [Migration("20230925190353_FKJobs24")]
+    partial class FKJobs24
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -61,17 +61,11 @@ namespace TpIntegradorSofttek.Migrations
                         .HasColumnType("real")
                         .HasColumnName("price");
 
-                    b.Property<int?>("ProjectCodProject")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ServiceCodService")
-                        .HasColumnType("int");
-
                     b.HasKey("CodJob");
 
-                    b.HasIndex("ProjectCodProject");
+                    b.HasIndex("CodProject");
 
-                    b.HasIndex("ServiceCodService");
+                    b.HasIndex("CodService");
 
                     b.ToTable("Jobs");
                 });
@@ -234,7 +228,7 @@ namespace TpIntegradorSofttek.Migrations
                             Email = "gabi.2912@hotmail.com",
                             IsActive = true,
                             Name = "Gabriel Baigorria",
-                            Password = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+                            Password = "162e9a2c1909da1a9351ceb62011fc82826128f10a56044433681aba5826b972",
                             RoleId = 1
                         },
                         new
@@ -244,7 +238,7 @@ namespace TpIntegradorSofttek.Migrations
                             Email = "feli.2003@hotmail.com",
                             IsActive = true,
                             Name = "Felipe Morato",
-                            Password = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4",
+                            Password = "e13fe3c24eca2a7180b5b88b6932420e99c4b5b916cb4674319102abebe12bb3",
                             RoleId = 2
                         });
                 });
@@ -253,11 +247,15 @@ namespace TpIntegradorSofttek.Migrations
                 {
                     b.HasOne("TpIntegradorSofttek.Entities.Project", "Project")
                         .WithMany()
-                        .HasForeignKey("ProjectCodProject");
+                        .HasForeignKey("CodProject")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TpIntegradorSofttek.Entities.Service", "Service")
                         .WithMany()
-                        .HasForeignKey("ServiceCodService");
+                        .HasForeignKey("CodService")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Project");
 

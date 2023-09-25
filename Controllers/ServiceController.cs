@@ -19,7 +19,7 @@ namespace TpIntegradorSofttek.Controllers
         }
 
         /// <summary>
-        /// Devuelve todos los servicios activos
+        /// Devuelve todos los Servicios activos
         /// </summary>
         /// <returns></returns>
         [HttpGet("GetAllActive")]

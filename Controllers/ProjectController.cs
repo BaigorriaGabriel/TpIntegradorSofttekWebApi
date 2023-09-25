@@ -62,10 +62,14 @@ namespace TpIntegradorSofttek.Controllers
         public async Task<IActionResult> Create(ProjectDto dto)
         {
             var project = new Project(dto);
-            await _unitOfWork.ProjectRepository.Insert(project);
-            await _unitOfWork.Complete();
-            return ResponseFactory.CreateSuccessResponse(201, "Proyecto agregado con exito!");
-        }
+			if (dto.Status == 1 || dto.Status == 2 || dto.Status == 3)
+            {
+				await _unitOfWork.ProjectRepository.Insert(project);
+                await _unitOfWork.Complete();
+                return ResponseFactory.CreateSuccessResponse(201, "Proyecto agregado con exito!");
+            }
+			return ResponseFactory.CreateErrorResponse(409, $"Status Invalido");
+		}
 
         /// <summary>
         /// Actualiza un Proyecto
@@ -79,10 +83,14 @@ namespace TpIntegradorSofttek.Controllers
         {
             if (await _unitOfWork.ProjectRepository.ProjectExById(id))
             {
-                var result = await _unitOfWork.ProjectRepository.Update(new Project(dto, id));
-                await _unitOfWork.Complete();
-                return ResponseFactory.CreateSuccessResponse(201, "Proyecto actualizado con exito!");
-            }
+                if(dto.Status == 1 || dto.Status == 2 || dto.Status == 3)
+                {
+                    var result = await _unitOfWork.ProjectRepository.Update(new Project(dto, id));
+                    await _unitOfWork.Complete();
+                    return ResponseFactory.CreateSuccessResponse(201, "Proyecto actualizado con exito!");
+                }
+				return ResponseFactory.CreateErrorResponse(409, $"Status Invalido");
+			}
             return ResponseFactory.CreateErrorResponse(404, $"No existe ningun Proyecto con el Id: {id}");
         }
 

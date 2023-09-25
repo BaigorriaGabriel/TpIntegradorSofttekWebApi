@@ -21,7 +21,7 @@ namespace TpIntegradorSofttek.Controllers
 
 
         /// <summary>
-        /// Devuelve todos los usuarios activos
+        /// Devuelve todos los Usuarios activos
         /// </summary>
         /// <returns></returns>
 
@@ -35,7 +35,7 @@ namespace TpIntegradorSofttek.Controllers
         }
 
         /// <summary>
-        /// Devuelve un usuario por ID
+        /// Devuelve un Usuario por ID
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -55,7 +55,7 @@ namespace TpIntegradorSofttek.Controllers
         }
 
         /// <summary>
-        /// Registra un usuario
+        /// Registra un Usuario
         /// </summary>
         /// <param name="dto"></param>
         /// <returns>datos del usuario con el Token</returns>
@@ -76,7 +76,7 @@ namespace TpIntegradorSofttek.Controllers
         }
 
         /// <summary>
-        /// Actualiza un usuario
+        /// Actualiza un Usuario
         /// </summary>
         /// <param name="id"></param>
         /// <param name="dto"></param>
@@ -104,7 +104,7 @@ namespace TpIntegradorSofttek.Controllers
         }
 
         /// <summary>
-        /// Elimina logicamente un usuario
+        /// Elimina logicamente un Usuario
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
