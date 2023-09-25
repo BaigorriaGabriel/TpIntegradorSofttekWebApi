@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TpIntegradorSofttek.DataAccess.Repositories.Interfaces;
+using TpIntegradorSofttek.DTOs;
 using TpIntegradorSofttek.Entities;
 
 namespace TpIntegradorSofttek.DataAccess.Repositories
@@ -23,7 +24,12 @@ namespace TpIntegradorSofttek.DataAccess.Repositories
             return project;
         }
 
-        public async Task<bool> ProjectExById(int id)
+		public override async Task<List<Project>> GetByStatus(Project projectToGet)
+		{
+			return await _context.Projects.Where(s => s.Status==projectToGet.Status && s.IsActive).ToListAsync();
+		}
+
+		public async Task<bool> ProjectExById(int id)
         {
             return await _context.Projects.AnyAsync(x => x.CodProject == id);
         }

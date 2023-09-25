@@ -50,12 +50,25 @@ namespace TpIntegradorSofttek.Controllers
             return ResponseFactory.CreateErrorResponse(404, $"No existe ningun Servicio con el Id: {id}");
         }
 
-        /// <summary>
-        /// Agrega un Servicio
-        /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        [HttpPost]
+		/// <summary>
+		/// Devuelve todos los Servicios con Status activo
+		/// </summary>
+		/// <returns></returns>
+		[HttpGet("GetAllActiveStatus")]
+		[Authorize]
+		public async Task<IActionResult> GetAllActiveStatus()
+		{
+			var services = await _unitOfWork.ServiceRepository.GetAllActiveStatus();
+
+			return ResponseFactory.CreateSuccessResponse(200, services);
+		}
+
+		/// <summary>
+		/// Agrega un Servicio
+		/// </summary>
+		/// <param name="dto"></param>
+		/// <returns></returns>
+		[HttpPost]
         [Route("Create")]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Create(ServiceDto dto)

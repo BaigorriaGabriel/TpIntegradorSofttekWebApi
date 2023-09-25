@@ -21,7 +21,17 @@ namespace TpIntegradorSofttek.DataAccess.Repositories
             return await _context.Set<T>().ToListAsync();
         }
 
-        public virtual async Task<T> GetById(T entity)
+		public virtual async Task<List<T>> GetAllActiveStatus()
+		{
+			return await _context.Set<T>().ToListAsync();
+		}
+
+		public virtual async Task<List<T>> GetByStatus(T entity)
+		{
+			return await _context.Set<T>().ToListAsync();
+		}
+
+		public virtual async Task<T> GetById(T entity)
         {
             return entity;
 

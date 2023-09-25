@@ -13,11 +13,16 @@ namespace TpIntegradorSofttek.DataAccess.Repositories
 
         public override async Task<List<Service>> GetAllActive()
         {
-            return await _context.Services.Where(s => s.IsActive == true).ToListAsync();
+            return await _context.Services.Where(s => s.IsActive ).ToListAsync();
         }
 
+		public override async Task<List<Service>> GetAllActiveStatus()
+		{
+			return await _context.Services.Where(s => s.IsActive && s.Status).ToListAsync();
+		}
 
-        public override async Task<Service> GetById(Service serviceToGet)
+
+		public override async Task<Service> GetById(Service serviceToGet)
         {
             var service = await _context.Services.FirstOrDefaultAsync(x => x.CodService == serviceToGet.CodService);
 

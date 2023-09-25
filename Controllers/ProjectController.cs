@@ -26,9 +26,9 @@ namespace TpIntegradorSofttek.Controllers
         [Authorize]
         public async Task<IActionResult> GetAllActive()
         {
-            var proyects = await _unitOfWork.ProjectRepository.GetAllActive();
+            var proyjects = await _unitOfWork.ProjectRepository.GetAllActive();
 
-            return ResponseFactory.CreateSuccessResponse(200, proyects);
+            return ResponseFactory.CreateSuccessResponse(200, proyjects);
         }
 
         /// <summary>
@@ -51,12 +51,33 @@ namespace TpIntegradorSofttek.Controllers
         }
 
 
-        /// <summary>
-        /// Agrega un Proyecto
-        /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        [HttpPost]
+		/// <summary>
+		/// Devuleve todos los Proyectos activos con el Status que se ingresa
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		[HttpGet("GetByStatus/{status}")]
+		[Authorize]
+		public async Task<IActionResult> GetByStatus([FromRoute] int status)
+		{
+			if (status == 1 || status == 2 || status == 3)
+			{
+                Project project = new Project();
+				project.Status = status;
+				var projects = await _unitOfWork.ProjectRepository.GetByStatus(project);
+
+				return ResponseFactory.CreateSuccessResponse(200, projects);
+			}
+			return ResponseFactory.CreateErrorResponse(404, $"Status Invalido");
+		}
+
+
+		/// <summary>
+		/// Agrega un Proyecto
+		/// </summary>
+		/// <param name="dto"></param>
+		/// <returns></returns>
+		[HttpPost]
         [Route("Create")]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Create(ProjectDto dto)

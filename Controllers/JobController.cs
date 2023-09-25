@@ -50,6 +50,7 @@ namespace TpIntegradorSofttek.Controllers
 			return ResponseFactory.CreateErrorResponse(404, $"No existe ningun Trabajo con el Id: {id}");
 		}
 
+
 		/// <summary>
 		/// Agrega un Trabajo
 		/// </summary>
