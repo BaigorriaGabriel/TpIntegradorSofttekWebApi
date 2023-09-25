@@ -19,11 +19,11 @@ namespace TpIntegradorSofttek.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        /// <summary>
-        /// Devuelve todos los Servicios activos
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet("GetAllActive")]
+		/// <summary>
+		/// Devuelve todos los Servicios activos, la entrada define el numero de pagina que muestra el Endpoint, por defecto 1
+		/// </summary>
+		/// <returns></returns>
+		[HttpGet("GetAllActive")]
         [Authorize]
         public async Task<IActionResult> GetAllActive(int pageToShow = 1)
         {

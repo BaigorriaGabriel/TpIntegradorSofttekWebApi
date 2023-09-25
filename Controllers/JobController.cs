@@ -20,7 +20,7 @@ namespace TpIntegradorSofttek.Controllers
 		}
 
 		/// <summary>
-		/// Devuelve todos los Trabajos activos
+		/// Devuelve todos los Trabajos activos, la entrada define el numero de pagina que muestra el Endpoint, por defecto 1
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet("GetAllActive")]
@@ -75,9 +75,13 @@ namespace TpIntegradorSofttek.Controllers
 				var service = await _unitOfWork.ServiceRepository.GetById(new Service(dto.CodService));
 				if (await _unitOfWork.ServiceRepository.ServiceExById(dto.CodService) && service.IsActive)
 				{
-					await _unitOfWork.JobRepository.Insert(job);
-					await _unitOfWork.Complete();
-					return ResponseFactory.CreateSuccessResponse(201, "Trabajo agregado con exito!");
+					if(dto.Price == (dto.HourValue * dto.AmountHours))
+					{
+						await _unitOfWork.JobRepository.Insert(job);
+						await _unitOfWork.Complete();
+						return ResponseFactory.CreateSuccessResponse(201, "Trabajo agregado con exito!");
+					}
+					return ResponseFactory.CreateErrorResponse(409, $"El Precio no coincide con la relacion Cantidad De Horas/Precio Por Hora");
 				}
 				return ResponseFactory.CreateErrorResponse(404, $"No existe ningun Servicio activo con el ID: {dto.CodService}");
 			}
@@ -102,9 +106,13 @@ namespace TpIntegradorSofttek.Controllers
 					var service = await _unitOfWork.ServiceRepository.GetById(new Service(dto.CodService));
 					if (await _unitOfWork.ServiceRepository.ServiceExById(dto.CodService) && service.IsActive)
 					{
-						var result = await _unitOfWork.JobRepository.Update(new Job(dto, id));
-						await _unitOfWork.Complete();
-						return ResponseFactory.CreateSuccessResponse(201, "Trabajo actualizado con exito!");
+						if (dto.Price == (dto.HourValue * dto.AmountHours))
+						{
+							var result = await _unitOfWork.JobRepository.Update(new Job(dto, id));
+							await _unitOfWork.Complete();
+							return ResponseFactory.CreateSuccessResponse(201, "Trabajo actualizado con exito!");
+						}
+						return ResponseFactory.CreateErrorResponse(409, $"El Precio no coincide con la relacion Cantidad De Horas/Precio Por Hora");
 					}
 
 					return ResponseFactory.CreateErrorResponse(404, $"No existe ningun Servicio activo con el ID: {dto.CodService}");
