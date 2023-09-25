@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TpIntegradorSofttek.DTOs;
 using TpIntegradorSofttek.Entities;
+using TpIntegradorSofttek.Helper;
 using TpIntegradorSofttek.Infrastructure;
 using TpIntegradorSofttek.Services;
 
@@ -24,11 +25,17 @@ namespace TpIntegradorSofttek.Controllers
         /// <returns></returns>
         [HttpGet("GetAllActive")]
         [Authorize]
-        public async Task<IActionResult> GetAllActive()
+        public async Task<IActionResult> GetAllActive(int pageToShow = 1)
         {
-            var proyjects = await _unitOfWork.ProjectRepository.GetAllActive();
+            var projects = await _unitOfWork.ProjectRepository.GetAllActive();
 
-            return ResponseFactory.CreateSuccessResponse(200, proyjects);
+			if (Request.Query.ContainsKey("page")) { int.TryParse(Request.Query["page"], out pageToShow); }
+
+			var url = new Uri($"{Request.Scheme}://{Request.Host}{Request.Path}").ToString();
+
+			var paginateProjects = PaginateHelper.Paginate(projects, pageToShow, url);
+
+			return ResponseFactory.CreateSuccessResponse(200, paginateProjects);
         }
 
         /// <summary>

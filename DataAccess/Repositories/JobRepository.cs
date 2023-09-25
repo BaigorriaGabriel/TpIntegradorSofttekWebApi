@@ -6,10 +6,12 @@ namespace TpIntegradorSofttek.DataAccess.Repositories
 {
 	public class JobRepository : Repository<Job>, IJobRepository
 	{
+
 		public JobRepository(ApplicationDbContext context) : base(context)
 		{
 
 		}
+		
 
 		public override async Task<List<Job>> GetAllActive()
 		{

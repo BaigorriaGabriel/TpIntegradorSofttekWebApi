@@ -20,18 +20,24 @@ namespace TpIntegradorSofttek.Controllers
         }
 
 
-        /// <summary>
-        /// Devuelve todos los Usuarios activos
-        /// </summary>
-        /// <returns></returns>
+		/// <summary>
+		/// Devuelve todos los Usuarios activos, la entrada define el numero de pagina que muestra el Endpoint, por defecto 1
+		/// </summary>
+		/// <returns>Todos los Usuarios activos</returns>
 
-        [HttpGet("GetAllActive")]
+		[HttpGet("GetAllActive")]
         [Authorize]
-        public async Task<IActionResult> GetAllActive()
+        public async Task<IActionResult> GetAllActive(int pageToShow=1)
         {
             var users = await _unitOfWork.UserRepository.GetAllActive();
 
-            return ResponseFactory.CreateSuccessResponse(200, users);
+            if(Request.Query.ContainsKey("page")) { int.TryParse(Request.Query["page"], out pageToShow); }
+
+            var url = new Uri($"{Request.Scheme}://{Request.Host}{Request.Path}").ToString();
+
+            var paginateUsers = PaginateHelper.Paginate(users, pageToShow, url);
+
+            return ResponseFactory.CreateSuccessResponse(200, paginateUsers);
         }
 
         /// <summary>
