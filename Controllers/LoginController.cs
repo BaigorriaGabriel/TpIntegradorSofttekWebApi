@@ -19,7 +19,11 @@ namespace TpIntegradorSofttek.Controllers
             _unitOfWork = unitOfWork;
             _tokenJwtHelper = new TokenJwtHelper(configuration);
         }
-
+        /// <summary>
+        /// Inicio de sesion
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> Login(AuthenticateDto dto )
         {

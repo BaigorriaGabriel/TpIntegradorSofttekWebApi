@@ -21,7 +21,7 @@ namespace TpIntegradorSofttek.Controllers
 
 
         /// <summary>
-        /// devuelve todos los usuarios activos
+        /// Devuelve todos los usuarios activos
         /// </summary>
         /// <returns></returns>
 
@@ -47,7 +47,6 @@ namespace TpIntegradorSofttek.Controllers
         {
             if(await _unitOfWork.UserRepository.UserExById(id))
             {
-
                 var users = await _unitOfWork.UserRepository.GetById(new User(id));
 
                 return ResponseFactory.CreateSuccessResponse(200, users);
@@ -67,6 +66,7 @@ namespace TpIntegradorSofttek.Controllers
         public async Task<IActionResult> Register(RegisterDto dto)
         {
             if (await _unitOfWork.UserRepository.UserExByMail(dto.Email)) return ResponseFactory.CreateErrorResponse(409, $"Ya existe un usuario registrado con el mail: {dto.Email}");
+            if (dto.RoleId != 1 && dto.RoleId != 2) return ResponseFactory.CreateErrorResponse(409, $"RoleId Invalido");
             var user = new User(dto);
             await _unitOfWork.UserRepository.Insert(user);
             await _unitOfWork.Complete();
@@ -97,6 +97,7 @@ namespace TpIntegradorSofttek.Controllers
                     return ResponseFactory.CreateErrorResponse(409, $"Ya existe un usuario registrado con el mail: {dto.Email}");
                 }
             }
+            if (dto.RoleId != 1 && dto.RoleId != 2) return ResponseFactory.CreateErrorResponse(409, $"RoleId Invalido");
             var result = await _unitOfWork.UserRepository.Update(new User(dto, id));
             await _unitOfWork.Complete();
             return ResponseFactory.CreateSuccessResponse(201, "Usuario actualizado con exito!");

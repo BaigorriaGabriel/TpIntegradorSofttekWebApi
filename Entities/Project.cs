@@ -1,10 +1,39 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Cors.Infrastructure;
+using TpIntegradorSofttek.DTOs;
 
 namespace TpIntegradorSofttek.Entities
 {
     public class Project
     {
+        public Project()
+        {
+            
+        }
+        public Project(int id)
+        {
+            CodProject = id;
+
+        }
+
+        public Project(ProjectDto dto)
+        {
+            Name = dto.Name;
+            Address = dto.Address;
+            Status = dto.Status;
+            IsActive = true;
+        }
+
+        public Project(ProjectDto dto, int id)
+        {
+            CodProject = id;
+            Name = dto.Name;
+            Address = dto.Address;
+            Status = dto.Status;
+            IsActive = true;
+        }
+
         [Key]
         [Column("codProject")]
         public int CodProject { get; set; }

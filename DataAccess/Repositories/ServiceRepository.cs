@@ -48,5 +48,10 @@ namespace TpIntegradorSofttek.DataAccess.Repositories
             _context.Services.Update(service);
             return true;
         }
+
+        public async Task<bool> ServiceExById(int id)
+        {
+            return await _context.Services.AnyAsync(x => x.CodService == id);
+        }
     }
 }

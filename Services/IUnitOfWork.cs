@@ -8,6 +8,8 @@ namespace TpIntegradorSofttek.Services
         public UserRepository UserRepository { get; }
         public ServiceRepository ServiceRepository { get; }
 
+        public ProjectRepository ProjectRepository { get; }
+
         Task<int> Complete();
     }
 }
