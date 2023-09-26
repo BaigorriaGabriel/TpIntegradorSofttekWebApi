@@ -23,7 +23,7 @@ namespace TpIntegradorSofttek.Controllers
         /// Inicio de sesion
         /// </summary>
         /// <param name="dto"></param>
-        /// <returns></returns>
+        /// <returns>Usuario con datos mas JWT</returns>
         [HttpPost]
         public async Task<IActionResult> Login(AuthenticateDto dto )
         {

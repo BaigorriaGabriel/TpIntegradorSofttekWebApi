@@ -22,7 +22,7 @@ namespace TpIntegradorSofttek.Controllers
 		/// <summary>
 		/// Devuelve todos los Proyectos activos, la entrada define el numero de pagina que muestra el Endpoint, por defecto 1
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>Todos los Proyectos activos</returns>
 		[HttpGet("GetAllActive")]
         [Authorize]
         public async Task<IActionResult> GetAllActive(int pageToShow = 1)
@@ -42,7 +42,7 @@ namespace TpIntegradorSofttek.Controllers
         /// Devuleve un Proyecto por ID
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>Proyecto por ID</returns>
         //devuelve el proyecto incluso si esta dado de baja (logicamente)
         [HttpGet("GetById/{id}")]
         [Authorize]
@@ -62,7 +62,7 @@ namespace TpIntegradorSofttek.Controllers
 		/// Devuleve todos los Proyectos activos con el Status que se ingresa
 		/// </summary>
 		/// <param name="id"></param>
-		/// <returns></returns>
+		/// <returns>Todos los Proyectos activos por Status</returns>
 		[HttpGet("GetByStatus/{status}")]
 		[Authorize]
 		public async Task<IActionResult> GetByStatus([FromRoute] int status)
@@ -83,7 +83,7 @@ namespace TpIntegradorSofttek.Controllers
 		/// Agrega un Proyecto
 		/// </summary>
 		/// <param name="dto"></param>
-		/// <returns></returns>
+		/// <returns>Mensaje de confirmacion o error</returns>
 		[HttpPost]
         [Route("Create")]
         [Authorize(Policy = "Admin")]
@@ -99,13 +99,13 @@ namespace TpIntegradorSofttek.Controllers
 			return ResponseFactory.CreateErrorResponse(409, $"Status Invalido");
 		}
 
-        /// <summary>
-        /// Actualiza un Proyecto
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        [HttpPut("Update/{id}")]
+		/// <summary>
+		/// Actualiza un Proyecto
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="dto"></param>
+		/// <returns>Mensaje de confirmacion o error</returns>
+		[HttpPut("Update/{id}")]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Update([FromRoute] int id, ProjectDto dto)
         {
@@ -122,12 +122,12 @@ namespace TpIntegradorSofttek.Controllers
             return ResponseFactory.CreateErrorResponse(404, $"No existe ningun Proyecto con el Id: {id}");
         }
 
-        /// <summary>
-        /// Elimina logicamente un Proyecto
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpDelete("Delete/{id}")]
+		/// <summary>
+		/// Elimina logicamente un Proyecto
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns>Mensaje de confirmacion o error</returns>
+		[HttpDelete("Delete/{id}")]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {

@@ -44,7 +44,7 @@ namespace TpIntegradorSofttek.Controllers
         /// Devuelve un Usuario por ID
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>Usuario por ID</returns>
         //verifica que exista un usuario con el id ingresado, si existe, devuelve el usuario incluso si esta dado de baja (logicamente)
         //sino, indica error 404
         [HttpGet("GetById/{id}")]
@@ -60,13 +60,13 @@ namespace TpIntegradorSofttek.Controllers
             return ResponseFactory.CreateErrorResponse(404, $"No existe ningun usuario con el Id: {id}");
         }
 
-        /// <summary>
-        /// Registra un Usuario
-        /// </summary>
-        /// <param name="dto"></param>
-        /// <returns>datos del usuario con el Token</returns>
-        //verifica que no exista un usuario con el mail a registrar, si existe indica error 409
-        [HttpPost]
+		/// <summary>
+		/// Registra un Usuario
+		/// </summary>
+		/// <param name="dto"></param>
+		/// <returns>Mensaje de confirmacion o error</returns>
+		//verifica que no exista un usuario con el mail a registrar, si existe indica error 409
+		[HttpPost]
         [Route("Register")]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Register(RegisterDto dto)
@@ -81,16 +81,16 @@ namespace TpIntegradorSofttek.Controllers
             return ResponseFactory.CreateSuccessResponse(201,"Usuario registrado con exito!");
         }
 
-        /// <summary>
-        /// Actualiza un Usuario
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        //antes de actualizar verifico si el usuario ya existe un usario con el mail a actualizar
-        //si ya existe verifico que ese usuario con el mail existente sea el mismo usuario que se esta actualizando
-        //si no lo es no lo dejo actualizar.
-        [HttpPut("Update/{id}")]
+		/// <summary>
+		/// Actualiza un Usuario
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="dto"></param>
+		/// <returns>Mensaje de confirmacion o error</returns>
+		//antes de actualizar verifico si el usuario ya existe un usario con el mail a actualizar
+		//si ya existe verifico que ese usuario con el mail existente sea el mismo usuario que se esta actualizando
+		//si no lo es no lo dejo actualizar.
+		[HttpPut("Update/{id}")]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Update([FromRoute] int id, RegisterDto dto)
         {
@@ -109,14 +109,14 @@ namespace TpIntegradorSofttek.Controllers
             return ResponseFactory.CreateSuccessResponse(201, "Usuario actualizado con exito!");
         }
 
-        /// <summary>
-        /// Elimina logicamente un Usuario
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        //verifica que exista un usuario con el id ingresado, si existe verifica que este activo, si no esta activo indica error 409
-        //si no existe usuario con id ingresado indica error 404
-        [HttpDelete("Delete/{id}")]
+		/// <summary>
+		/// Elimina logicamente un Usuario
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns>Mensaje de confirmacion o error</returns>
+		//verifica que exista un usuario con el id ingresado, si existe verifica que este activo, si no esta activo indica error 409
+		//si no existe usuario con id ingresado indica error 404
+		[HttpDelete("Delete/{id}")]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {

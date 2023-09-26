@@ -22,7 +22,7 @@ namespace TpIntegradorSofttek.Controllers
 		/// <summary>
 		/// Devuelve todos los Servicios activos, la entrada define el numero de pagina que muestra el Endpoint, por defecto 1
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>Todos los Servicios activos</returns>
 		[HttpGet("GetAllActive")]
         [Authorize]
         public async Task<IActionResult> GetAllActive(int pageToShow = 1)
@@ -42,7 +42,7 @@ namespace TpIntegradorSofttek.Controllers
         /// Devuleve un Servicio por ID
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>Servicio por ID</returns>
         //devuelve el servicio incluso si esta dado de baja (logicamente)
         [HttpGet("GetById/{id}")]
         [Authorize]
@@ -60,7 +60,7 @@ namespace TpIntegradorSofttek.Controllers
 		/// <summary>
 		/// Devuelve todos los Servicios con Status activo
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>Todos los Servicios de Status activo</returns>
 		[HttpGet("GetAllActiveStatus")]
 		[Authorize]
 		public async Task<IActionResult> GetAllActiveStatus()
@@ -74,7 +74,7 @@ namespace TpIntegradorSofttek.Controllers
 		/// Agrega un Servicio
 		/// </summary>
 		/// <param name="dto"></param>
-		/// <returns></returns>
+		/// <returns>Mensaje de confirmacion o error</returns>
 		[HttpPost]
         [Route("Create")]
         [Authorize(Policy = "Admin")]
@@ -86,13 +86,13 @@ namespace TpIntegradorSofttek.Controllers
             return ResponseFactory.CreateSuccessResponse(201, "Servicio agregado con exito!");
         }
 
-        /// <summary>
-        /// Actualiza un Servicio
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        [HttpPut("Update/{id}")]
+		/// <summary>
+		/// Actualiza un Servicio
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="dto"></param>
+		/// <returns>Mensaje de confirmacion o error</returns>
+		[HttpPut("Update/{id}")]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Update([FromRoute] int id, ServiceDto dto)
         {
@@ -105,12 +105,12 @@ namespace TpIntegradorSofttek.Controllers
             return ResponseFactory.CreateErrorResponse(404, $"No existe ningun Servicio con el Id: {id}");
         }
 
-        /// <summary>
-        /// Elimina logicamente un Servicio
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpDelete("Delete/{id}")]
+		/// <summary>
+		/// Elimina logicamente un Servicio
+		/// </summary>
+		/// <param name="id"></param>
+		/// <returns>Mensaje de confirmacion o error</returns>
+		[HttpDelete("Delete/{id}")]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {

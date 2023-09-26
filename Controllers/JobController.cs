@@ -22,7 +22,7 @@ namespace TpIntegradorSofttek.Controllers
 		/// <summary>
 		/// Devuelve todos los Trabajos activos, la entrada define el numero de pagina que muestra el Endpoint, por defecto 1
 		/// </summary>
-		/// <returns></returns>
+		/// <returns>Todos los Trabajos activos</returns>
 		[HttpGet("GetAllActive")]
 		[Authorize]
 		public async Task<IActionResult> GetAllActive(int pageToShow = 1)
@@ -42,7 +42,7 @@ namespace TpIntegradorSofttek.Controllers
 		/// Devuleve un Trabajo por ID
 		/// </summary>
 		/// <param name="id"></param>
-		/// <returns></returns>
+		/// <returns>Trabajo por ID</returns>
 		//devuelve el proyecto incluso si esta dado de baja (logicamente)
 		[HttpGet("GetById/{id}")]
 		[Authorize]
@@ -62,7 +62,7 @@ namespace TpIntegradorSofttek.Controllers
 		/// Agrega un Trabajo
 		/// </summary>
 		/// <param name="dto"></param>
-		/// <returns></returns>
+		/// <returns>Mensaje de confirmacion o error</returns>
 		[HttpPost]
 		[Route("Create")]
 		[Authorize(Policy = "Admin")]
@@ -93,7 +93,7 @@ namespace TpIntegradorSofttek.Controllers
 		/// </summary>
 		/// <param name="id"></param>
 		/// <param name="dto"></param>
-		/// <returns></returns>
+		/// <returns>Mensaje de confirmacion o error</returns>
 		[HttpPut("Update/{id}")]
 		[Authorize(Policy = "Admin")]
 		public async Task<IActionResult> Update([FromRoute] int id, JobDto dto)
@@ -127,7 +127,7 @@ namespace TpIntegradorSofttek.Controllers
 		/// Elimina logicamente un Trabajo
 		/// </summary>
 		/// <param name="id"></param>
-		/// <returns></returns>
+		/// <returns>Mensaje de confirmacion o error</returns>
 		[HttpDelete("Delete/{id}")]
 		[Authorize(Policy = "Admin")]
 		public async Task<IActionResult> Delete([FromRoute] int id)
