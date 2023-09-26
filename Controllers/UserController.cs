@@ -110,7 +110,7 @@ namespace TpIntegradorSofttek.Controllers
         }
 
 		/// <summary>
-		/// Elimina logicamente un Usuario
+		/// Elimina logicamente un Usuario.
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns>Mensaje de confirmacion o error</returns>
