@@ -94,7 +94,7 @@ namespace TpIntegradorSofttek.Controllers
 		//si ya existe verifico que ese usuario con el mail existente sea el mismo usuario que se esta actualizando
 		//si no lo es no lo dejo actualizar.
 		[HttpPut("Update/{id}")]
-        //[Authorize(Policy = "Admin")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> Update([FromRoute] int id, RegisterDto dto)
         {
             if (await _unitOfWork.UserRepository.UserExByMail(dto.Email))
