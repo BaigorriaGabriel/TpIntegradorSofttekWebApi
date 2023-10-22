@@ -27,8 +27,10 @@ namespace TpIntegradorSofttek.Controllers
 
 		[HttpGet("GetAllActive")]
         [Authorize]
-        public async Task<IActionResult> GetAllActive(int pageToShow=1)
+        public async Task<IActionResult> GetAllActive() //(int pageToShow = 1)
         {
+            int pageToShow = 1;
+
             var users = await _unitOfWork.UserRepository.GetAllActive();
 
             if(Request.Query.ContainsKey("page")) { int.TryParse(Request.Query["page"], out pageToShow); }
@@ -38,6 +40,7 @@ namespace TpIntegradorSofttek.Controllers
             var paginateUsers = PaginateHelper.Paginate(users, pageToShow, url);
 
             return ResponseFactory.CreateSuccessResponse(200, paginateUsers);
+            
         }
 
         /// <summary>
@@ -91,7 +94,7 @@ namespace TpIntegradorSofttek.Controllers
 		//si ya existe verifico que ese usuario con el mail existente sea el mismo usuario que se esta actualizando
 		//si no lo es no lo dejo actualizar.
 		[HttpPut("Update/{id}")]
-        [Authorize(Policy = "Admin")]
+        //[Authorize(Policy = "Admin")]
         public async Task<IActionResult> Update([FromRoute] int id, RegisterDto dto)
         {
             if (await _unitOfWork.UserRepository.UserExByMail(dto.Email))
@@ -102,12 +105,13 @@ namespace TpIntegradorSofttek.Controllers
                 {
                     return ResponseFactory.CreateErrorResponse(409, $"Ya existe un usuario registrado con el mail: {dto.Email}");
                 }
+                if (dto.RoleId != 1 && dto.RoleId != 2) return ResponseFactory.CreateErrorResponse(409, $"RoleId Invalido");
+                var result = await _unitOfWork.UserRepository.Update(new User(dto, id));
+                await _unitOfWork.Complete();
+                return ResponseFactory.CreateSuccessResponse(201, "Usuario actualizado con exito!");
             }
-            if (dto.RoleId != 1 && dto.RoleId != 2) return ResponseFactory.CreateErrorResponse(409, $"RoleId Invalido");
-            var result = await _unitOfWork.UserRepository.Update(new User(dto, id));
-            await _unitOfWork.Complete();
-            return ResponseFactory.CreateSuccessResponse(201, "Usuario actualizado con exito!");
-        }
+			return ResponseFactory.CreateErrorResponse(404, $"No existe ningun usuario con el ID: {id}");
+		}
 
 		/// <summary>
 		/// Elimina logicamente un Usuario

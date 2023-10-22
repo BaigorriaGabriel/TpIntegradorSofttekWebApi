@@ -6,7 +6,8 @@ namespace TpIntegradorSofttek.Helper
 	{
 		public static PaginateDataDto<T> Paginate<T>(List<T> itemsToPaginate, int  currentPage, string url)
 		{
-			int pageSize = 10;
+			//CAMBIAR A 100 PARA EL FRONT
+			int pageSize = 100;
 			var totalItems = itemsToPaginate.Count;
 			var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
 

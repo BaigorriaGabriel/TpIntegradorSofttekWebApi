@@ -15,8 +15,20 @@ namespace TpIntegradorSofttek
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            var AllowSpecificOrigins = "";
 
             // Add services to the container.
+
+            //builder.Services.AddCors(options =>
+            //{
+            //    options.AddPolicy(name: AllowSpecificOrigins, policy =>
+            //    {
+            //        policy.WithOrigins("*").AllowAnyMethod().AllowAnyHeader();
+            //    });
+            //});
+
+            builder.Services.AddCors();
+            
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -87,8 +99,11 @@ namespace TpIntegradorSofttek
 
             app.UseAuthorization();
 
-            
+            //app.UseCors(AllowSpecificOrigins);
 
+            app.UseCors(builder => builder.AllowAnyOrigin()
+                                          .AllowAnyHeader()
+                                          .AllowAnyMethod());
 
             app.MapControllers();
 

@@ -43,9 +43,16 @@ namespace TpIntegradorSofttek.Controllers
 
             };
 
-            return ResponseFactory.CreateSuccessResponse(200, user);
+            //return ResponseFactory.CreateSuccessResponse(200, user);
+
+            //saco el Response para que en el front poder deserializar directamente el objeto user.
+            //no se como acceder al objeto desde el Response con el data
+            //tal vez para que funcione deberia cambiar la clase del Front de UserLogin y agregarle el Data para poder acceder al data.
+
+            return Ok(user);
         }
 
 
+        
     }
 }
